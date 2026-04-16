@@ -1,0 +1,19 @@
+on:
+  schedule:
+    - cron:  '0 0 * * *' # Runs every day at midnight
+  workflow_dispatch: # Allows you to run it manually
+
+jobs:
+  repo-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+      - name: repo-sync
+        uses: repo-sync/github-sync@v2
+        with:
+          source_repo: "https://github.com/jaspher03092004/KneuraSense.git"
+          source_branch: "main"
+          destination_branch: "main"
+          github_token: ${{ secrets.PAT }}
